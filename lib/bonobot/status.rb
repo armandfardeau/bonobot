@@ -109,7 +109,7 @@ module Bonobot
 
     def self.read_annotation(path)
       File.readlines(path).map do |line|
-        line.sub(/# bonobo_fingerprint:/, "").sub("<%", "").sub("%>", "").strip if line.match?(/# bonobo_fingerprint:/) || line.match?(/<%# bonobo_fingerprint:/)
+        line.sub(/# bonobo_fingerprint:/, "").sub("<%", "").sub("%>", "").strip if line.match?(/# bonobot_fingerprint:/) || line.match?(/<%# bonobot_fingerprint:/)
       end.compact.first
     end
 
