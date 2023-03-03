@@ -32,10 +32,10 @@ module Bonobo
 
       puts "-----"
       puts "#####"
-      if !self.out_of_date.empty? && !self.missing.empty?
-        exit 1
+      if self.out_of_date.empty? && self.missing.empty?
+        true
       else
-        exit 0
+        false
       end
     end
 

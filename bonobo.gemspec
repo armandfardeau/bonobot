@@ -27,6 +27,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 6.0"
 
-  spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "byebug"
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-rspec"
+  spec.add_development_dependency "rubocop-faker"
 end

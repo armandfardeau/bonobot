@@ -1,8 +1,9 @@
 require "bonobo/status"
 
 namespace :bonobo do
-  desc "YOOOOO"
+  desc "Generate status"
   task :status => :environment do
-    Bonobo::Status.generate
+    status = Bonobo::Status.generate
+    exit 1 unless status
   end
 end
