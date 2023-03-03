@@ -182,10 +182,10 @@ PLATFORMS
 
 DEPENDENCIES
   bonobo!
-  byebug
-  rubocop
-  rubocop-faker
-  rubocop-rspec
+  byebug (~> 11.1)
+  rubocop (~> 1.30)
+  rubocop-faker (~> 1.1.0)
+  rubocop-rspec (~> 2.11.1)
 
 BUNDLED WITH
    2.3.13
