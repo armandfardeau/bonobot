@@ -1,4 +1,5 @@
-require "byebug"
+# frozen_string_literal: true
+
 require "json"
 
 module Bonobo
@@ -8,60 +9,57 @@ module Bonobo
       puts "🙈 🙉 🙊 Bonobo 🙈 🙉 🙊"
       puts "-----"
       puts "🛠 Generating status.json"
-      File.write("status.json", JSON.pretty_generate({ rails_files: self.rails_files, engines_files: self.engines_files, overloads: self.overloads }))
+      File.write("status.json", JSON.pretty_generate({ rails_files: rails_files, engines_files: engines_files, overloads: overloads }))
       puts File.expand_path("status.json")
       puts "-----"
 
-      unless self.up_to_date.empty?
-        puts "🥳 Up to date fingerprint count: #{self.up_to_date.count }"
-        puts "-> Up to date fingerprint: #{self.up_to_date}"
+      unless up_to_date.empty?
+        puts "🥳 Up to date fingerprint count: #{up_to_date.count}"
+        puts "-> Up to date fingerprint: #{up_to_date}"
         puts ""
       end
 
-      unless self.out_of_date.empty?
-        puts "😱 Out of date fingerprint count: #{self.out_of_date.count}"
-        puts "-> Out of date fingerprint: #{self.out_of_date}"
+      unless out_of_date.empty?
+        puts "😱 Out of date fingerprint count: #{out_of_date.count}"
+        puts "-> Out of date fingerprint: #{out_of_date}"
         puts ""
       end
 
-      unless self.missing.empty?
-        puts "🤬 Files missing fingerprint count: #{self.missing.count}"
-        puts "-> Missing fingerprint: #{self.missing}"
+      unless missing.empty?
+        puts "🤬 Files missing fingerprint count: #{missing.count}"
+        puts "-> Missing fingerprint: #{missing}"
         puts ""
       end
 
       puts "-----"
       puts "#####"
-      if self.out_of_date.empty? && self.missing.empty?
-        true
-      else
-        false
-      end
+
+      out_of_date.empty? && missing.empty?
     end
 
     def self.out_of_date
-      self.overloads.fetch(:out_of_date, [])
+      overloads.fetch(:out_of_date, [])
     end
 
     def self.up_to_date
-      self.overloads.fetch(:up_to_date, [])
+      overloads.fetch(:up_to_date, [])
     end
 
     def self.missing
-      self.overloads.fetch(:missing, [])
+      overloads.fetch(:missing, [])
     end
 
     def self.overloads
-      @overloads ||= self.rails_files.each_with_object({}) do |(path, fingerprint), hash|
-        self.engines_files.keys.each do |engine_name|
+      @overloads ||= rails_files.each_with_object({}) do |(path, fingerprint), hash|
+        engines_files.keys.each do |engine_name|
           next unless path.include? engine_name
 
-          source_path = self.engines_files[engine_name].fetch(path, nil)
+          source_path = engines_files[engine_name].fetch(path, nil)
           next unless source_path
 
           result = [engine_name, source_path]
 
-          key = self.status_key(source_path[:fingerprint], fingerprint)
+          key = status_key(source_path[:fingerprint], fingerprint)
           if hash[key].nil?
             hash[key] = [result]
           else
@@ -73,7 +71,7 @@ module Bonobo
 
     def self.rails_files
       @rails_files ||= Dir.glob(Rails.root.join("app", "**", "*.{erb,rb}")).map { |path| path.sub("#{Rails.root}/", "") }.each_with_object({}) do |path, hash|
-        hash[path] = self.read_annotation(path)
+        hash[path] = read_annotation(path)
       end
     end
 
@@ -96,7 +94,7 @@ module Bonobo
 
     def self.engine_paths(paths)
       paths.each_with_object({}) do |path, hash|
-        _name, *short_path = path.sub("#{self.gems_dir}/gems/", "").split("/")
+        _name, *short_path = path.sub("#{gems_dir}/gems/", "").split("/")
         hash[short_path.join("/")] = { path: path, fingerprint: fingerprint(path) }
       end
     end
@@ -121,6 +119,5 @@ module Bonobo
 
       :out_of_date
     end
-
   end
 end
