@@ -2,11 +2,11 @@
 
 require "json"
 
-module Bonobo
+module Bonobot
   class Status
     def self.generate
       puts "#####"
-      puts "🙈 🙉 🙊 Bonobo 🙈 🙉 🙊"
+      puts "🙈 🙉 🙊 Bonobot 🙈 🙉 🙊"
       puts "-----"
       puts "🛠 Generating status.json"
       File.write("status.json", JSON.pretty_generate({ rails_files: rails_files, engines_files: engines_files, overloads: overloads }))

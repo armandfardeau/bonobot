@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "bonobo/status"
+require "bonobot/status"
 
-namespace :bonobo do
+namespace :bonobot do
   desc "Generate status"
   task status: :environment do
-    status = Bonobo::Status.generate
+    status = Bonobot::Status.generate
     exit 1 unless status
   end
 end

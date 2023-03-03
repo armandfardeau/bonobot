@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bonobo (0.0.2)
+    bonobot (0.0.1)
       rails (~> 6.0)
 
 GEM
@@ -183,7 +183,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bonobo!
+  bonobot!
   byebug (~> 11.1)
   rubocop (~> 1.30)
   rubocop-faker (~> 1.1.0)

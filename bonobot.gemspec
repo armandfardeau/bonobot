@@ -3,17 +3,17 @@
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
-require "bonobo/version"
+require "bonobot/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name = "bonobo"
-  spec.version = Bonobo::VERSION
+  spec.name = "bonobot"
+  spec.version = Bonobot::VERSION
   spec.authors = ["armandfardeau"]
   spec.email = ["fardeauarmand@gmail.com"]
-  spec.homepage = "https://github/armandfareau/bonobo"
-  spec.summary = "Summary of Bonobo."
-  spec.description = "Description of Bonobo."
+  spec.homepage = "https://github/armandfareau/bonobot"
+  spec.summary = "Summary of Bonobot."
+  spec.description = "Description of Bonobot."
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.5.0"
 
