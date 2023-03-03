@@ -14,4 +14,5 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 gem "devise"
-gem "decidim", "~> 0.27.0"
+gem "decidim", "~> 0.26.0"
+gem "decidim-initiatives", "~> 0.26.0"
