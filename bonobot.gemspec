@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.version = Bonobot::VERSION
   spec.authors = ["armandfardeau"]
   spec.email = ["fardeauarmand@gmail.com"]
-  spec.homepage = "https://github/armandfareau/bonobot"
+  spec.homepage = "https://github.com/armandfardeau/bonobo"
   spec.summary = "Summary of Bonobot."
   spec.description = "Description of Bonobot."
   spec.license = "MIT"
