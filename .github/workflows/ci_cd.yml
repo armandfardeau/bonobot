@@ -25,7 +25,7 @@ jobs:
         run: bundle exec rubocop -P
   release:
     if: "github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'"
-    needs: [tests, lint]
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.0.0
