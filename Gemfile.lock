@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bonobot (0.0.3)
+    bonobot (0.0.4)
       rails (~> 6.0)
 
 GEM

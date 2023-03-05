@@ -5,36 +5,42 @@ require "json"
 module Bonobot
   class Status
     def self.generate
-      puts "#####"
+      puts "-----"
       puts "🙈 🙉 🙊 Bonobot 🙈 🙉 🙊"
       puts "-----"
-      puts "🛠 Generating status.json"
+      puts "🛠 Generating status"
       File.write("status.json", JSON.pretty_generate({ rails_files: rails_files, engines_files: engines_files, overloads: overloads }))
       puts File.expand_path("status.json")
       puts "-----"
 
       unless up_to_date.empty?
         puts "🥳 Up to date fingerprint count: #{up_to_date.count}"
-        puts "-> Up to date fingerprint: #{up_to_date}"
+        puts "-> Up to date fingerprint: #{present(up_to_date)}"
         puts ""
       end
 
       unless out_of_date.empty?
         puts "😱 Out of date fingerprint count: #{out_of_date.count}"
-        puts "-> Out of date fingerprint: #{out_of_date}"
+        puts "-> Out of date fingerprint: #{present(out_of_date)}"
         puts ""
       end
 
       unless missing.empty?
         puts "🤬 Files missing fingerprint count: #{missing.count}"
-        puts "-> Missing fingerprint: #{missing}"
+        puts "-> Missing fingerprint: #{present(missing)}"
         puts ""
       end
 
       puts "-----"
-      puts "#####"
-
       out_of_date.empty? && missing.empty?
+    end
+
+    def self.present(entry)
+      entries = entry.map do |(engine_name, source_path)|
+        "  - #{engine_name}: #{source_path[:short_path]} (#{source_path[:fingerprint]})"
+      end.join("\n")
+
+      "\n#{entries}"
     end
 
     def self.out_of_date
@@ -57,7 +63,7 @@ module Bonobot
           source_path = engines_files[engine_name].fetch(path, nil)
           next unless source_path
 
-          result = [engine_name, source_path]
+          result = [engine_name, source_path.merge(short_path: path)]
 
           key = status_key(source_path[:fingerprint], fingerprint)
           if hash[key].nil?
