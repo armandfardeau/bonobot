@@ -2,7 +2,7 @@
 
 module LocalFiles
   def self.files
-    @rails_files ||= Dir.glob(Rails.root.join("app", "**", "*.{erb,rb}")).map { |path| path.sub("#{Rails.root}/", "") }.each_with_object({}) do |path, hash|
+    @files ||= Dir.glob(::Rails.root.join("app", "**", "*.{erb,rb}")).map { |path| path.sub("#{::Rails.root}/", "") }.each_with_object({}) do |path, hash|
       hash[path] = read_annotation(path)
     end
   end

@@ -1,0 +1,33 @@
+require "spec_helper"
+require "rails"
+require "bonobot/local_files"
+
+describe LocalFiles do
+  let(:root_path) { Pathname.new(Dir.getwd.to_s) }
+
+  describe ".files" do
+    before do
+      allow(::Rails).to receive(:root).and_return(root_path)
+      allow(::Rails.root).to receive(:join).and_return("#{root_path}/spec/fixture_files**/*.{erb,rb}")
+    end
+
+    it "returns a hash of files" do
+      expect(described_class.files).to be_a(Hash)
+      expect(described_class.files).to eq({
+                                            "spec/fixture_files/empty_example_file.html.erb" => nil,
+                                            "spec/fixture_files/empty_example_file.rb" => nil,
+                                            "spec/fixture_files/example_file.html.erb" => "123456",
+                                            "spec/fixture_files/example_file.rb" => "123456"
+                                          })
+    end
+  end
+
+  describe ".read_annotation" do
+    it "returns an annotation" do
+      expect(described_class.read_annotation("./spec/fixture_files/empty_example_file.html.erb")).to be_nil
+      expect(described_class.read_annotation("./spec/fixture_files/empty_example_file.rb")).to be_nil
+      expect(described_class.read_annotation("./spec/fixture_files/example_file.rb")).to eq("123456")
+      expect(described_class.read_annotation("./spec/fixture_files/example_file.html.erb")).to eq("123456")
+    end
+  end
+end
