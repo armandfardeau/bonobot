@@ -48,11 +48,11 @@ describe EnginesFiles do
         double("DummyEngine",
                instance: double("instance", root: Pathname.new("./spec/fixture_files/dummy_engine")),
                engine_name: "dummy_engine",
-               railtie_namespace: "Dummy::Admin::Engine")
+               railtie_namespace: "Dummy::Admin")
+      end
 
-        it "returns the gem name" do
-          expect(described_class.engine_to_name(dummy_engine)).to eq("dummy/admin")
-        end
+      it "returns the gem name" do
+        expect(described_class.engine_to_name(dummy_engine)).to eq("dummy/admin")
       end
     end
   end
