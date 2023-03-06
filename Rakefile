@@ -7,6 +7,7 @@ rescue LoadError
 end
 
 require "rdoc/task"
+require "rspec/core/rake_task"
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = "rdoc"
@@ -20,10 +21,8 @@ require "bundler/gem_tasks"
 
 require "rake/testtask"
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.pattern = "test/**/*_test.rb"
-  t.verbose = false
+Rake::TestTask.new(:test) do |_t|
+  RSpec::Core::RakeTask.new(:spec)
 end
 
 task default: :test

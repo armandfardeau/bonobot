@@ -22,7 +22,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.0"
 
   spec.add_development_dependency "byebug", "~> 11.1"
+  spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop", "~> 1.30"
   spec.add_development_dependency "rubocop-faker", "~> 1.1.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.11.1"
+  spec.add_development_dependency "simplecov"
 end
