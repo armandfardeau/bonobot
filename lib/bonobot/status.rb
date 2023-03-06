@@ -13,26 +13,26 @@ module Bonobot
       puts File.expand_path("status.json")
       puts "-----"
 
-      unless Overloads.up_to_date.empty?
-        puts "🥳 Up to date fingerprint count: #{Overloads.up_to_date.count}"
-        puts "-> Up to date fingerprint: #{present(Overloads.up_to_date)}"
+      unless Overloads.status(:up_to_date).empty?
+        puts "🥳 Up to date fingerprint count: #{Overloads.status(:up_to_date).count}"
+        puts "-> Up to date fingerprint: #{present(Overloads.status(:up_to_date))}"
         puts ""
       end
 
-      unless Overloads.out_of_date.empty?
-        puts "😱 Out of date fingerprint count: #{Overloads.out_of_date.count}"
-        puts "-> Out of date fingerprint: #{present(Overloads.out_of_date)}"
+      unless Overloads.status(:out_of_date).empty?
+        puts "😱 Out of date fingerprint count: #{Overloads.status(:out_of_date).count}"
+        puts "-> Out of date fingerprint: #{present(Overloads.status(:out_of_date))}"
         puts ""
       end
 
-      unless Overloads.missing.empty?
-        puts "🤬 Files missing fingerprint count: #{Overloads.missing.count}"
-        puts "-> Missing fingerprint: #{present(Overloads.missing)}"
+      unless Overloads.status(:missing).empty?
+        puts "🤬 Files missing fingerprint count: #{Overloads.status(:missing).count}"
+        puts "-> Missing fingerprint: #{present(Overloads.status(:missing))}"
         puts ""
       end
 
       puts "-----"
-      Overloads.out_of_date.empty? && Overloads.missing.empty?
+      Overloads.status(:out_of_date).empty? && Overloads.status(:missing).empty?
     end
 
     def self.present(entry)

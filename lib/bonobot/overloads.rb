@@ -28,15 +28,7 @@ module Overloads
     :out_of_date
   end
 
-  def self.out_of_date
-    files.fetch(:out_of_date, [])
-  end
-
-  def self.up_to_date
-    files.fetch(:up_to_date, [])
-  end
-
-  def self.missing
-    files.fetch(:missing, [])
+  def self.status(status)
+    files.fetch(status, [])
   end
 end
