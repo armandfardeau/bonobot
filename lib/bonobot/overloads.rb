@@ -2,7 +2,7 @@
 
 module Overloads
   def self.files
-    @overloads ||= LocalFiles.files.each_with_object({}) do |(path, fingerprint), hash|
+    @files ||= LocalFiles.files.each_with_object({}) do |(path, fingerprint), hash|
       EnginesFiles.files.keys.each do |engine_name|
         next unless path.include? engine_name
 

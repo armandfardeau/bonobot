@@ -2,7 +2,7 @@
 
 module EnginesFiles
   def self.files
-    @engine_files ||= ::Rails::Engine.subclasses.each_with_object({}) do |klass, hash|
+    @files ||= ::Rails::Engine.subclasses.each_with_object({}) do |klass, hash|
       paths = Dir.glob("#{klass.instance.root}/app/**/*.{erb,rb}")
       next if paths.empty?
 

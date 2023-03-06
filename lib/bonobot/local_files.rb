@@ -10,6 +10,6 @@ module LocalFiles
   def self.read_annotation(path)
     File.readlines(path).map do |line|
       line.sub(/# bonobot_fingerprint:/, "").sub("<%", "").sub("%>", "").strip if line.match?(/# bonobot_fingerprint:/) || line.match?(/<%# bonobot_fingerprint:/)
-    end.compact.first
+    end.compact.first.presence
   end
 end
