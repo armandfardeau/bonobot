@@ -40,7 +40,7 @@ describe EnginesFiles do
 
   describe ".engine_name" do
     it "returns the gem name" do
-      expect(described_class.engine_name(dummy_engine)).to eq("dummy")
+      expect(described_class.engine_to_name(dummy_engine)).to eq("dummy")
     end
 
     context "when engine has a railtie_namespace" do
@@ -51,7 +51,7 @@ describe EnginesFiles do
                railtie_namespace: "Dummy::Admin::Engine")
 
         it "returns the gem name" do
-          expect(described_class.engine_name(dummy_engine)).to eq("dummy/admin")
+          expect(described_class.engine_to_name(dummy_engine)).to eq("dummy/admin")
         end
       end
     end

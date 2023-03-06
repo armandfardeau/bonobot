@@ -6,11 +6,11 @@ module EnginesFiles
       paths = Dir.glob("#{klass.instance.root}/app/**/*.{erb,rb}")
       next if paths.empty?
 
-      hash[engine_name(klass)] = engine_paths(paths)
+      hash[engine_to_name(klass)] = engine_paths(paths)
     end
   end
 
-  def self.engine_name(engine_class)
+  def self.engine_to_name(engine_class)
     if engine_class.respond_to?(:railtie_namespace) && engine_class.railtie_namespace
       engine_class.railtie_namespace.to_s.split("::").map(&:underscore).join("/")
     else
