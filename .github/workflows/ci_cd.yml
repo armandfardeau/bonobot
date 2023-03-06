@@ -24,7 +24,7 @@ jobs:
       - name: Run Rubocop
         run: bundle exec rubocop -P
   tests:
-    name: Lint code
+    name: Tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
