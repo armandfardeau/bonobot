@@ -20,13 +20,13 @@ module EnginesFiles
 
   def self.engine_paths(paths)
     paths.each_with_object({}) do |path, hash|
-      _name, *short_path = path.sub("#{gems_dir}/gems/", "").split("/")
+      _name, *short_path = path.sub(gems_dir, "").split("/")
       hash[short_path.join("/")] = { path: path, fingerprint: fingerprint(path) }
     end
   end
 
   def self.gems_dir
-    @gems_dir ||= Bundler.rubygems.gem_dir
+    @gems_dir ||= "#{Bundler.rubygems.gem_dir}/gems/"
   end
 
   def self.fingerprint(path)

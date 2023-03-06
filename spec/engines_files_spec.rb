@@ -7,7 +7,10 @@ require "rails/engine"
 describe EnginesFiles do
   before do
     allow(::Rails::Engine).to receive(:subclasses).and_return([dummy_engine])
+    allow(Bundler.rubygems).to receive(:gem_dir).and_return(gems_dir)
   end
+
+  let(:gems_dir) { "/Users/username/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0" }
 
   let(:dummy_engine) do
     double("DummyEngine",
@@ -51,6 +54,23 @@ describe EnginesFiles do
           expect(described_class.engine_name(dummy_engine)).to eq("dummy/admin")
         end
       end
+    end
+  end
+
+  describe ".engine_paths" do
+    before do
+      allow(File).to receive(:read).and_return("# frozen_string_literal: true")
+    end
+
+    let(:paths) { ["#{gems_dir}/gems/spec/fixture_files/dummy_engine/app/example_file.rb"] }
+
+    it "returns the engine paths" do
+      expect(described_class.engine_paths(paths)).to eq({
+                                                          "fixture_files/dummy_engine/app/example_file.rb" => {
+                                                            fingerprint: "3d826f91cfc807387499d3c63c365203",
+                                                            path: "#{gems_dir}/gems/spec/fixture_files/dummy_engine/app/example_file.rb"
+                                                          }
+                                                        })
     end
   end
 end
