@@ -17,7 +17,7 @@ FactoryBot.define do
   end
 
   factory :engine_instance do
-    root { Dir.getwd }
+    root { "#{Dir.getwd}" }
   end
 
   factory :local_file, class: Bonobot::LocalFile do
@@ -31,5 +31,12 @@ FactoryBot.define do
     transient { engine { build(:engine) } }
 
     initialize_with { new(path, engine) }
+  end
+
+  factory :overload, class: Bonobot::Overload do
+    transient { engine_file { build(:engine_file) } }
+    transient { local_file { build(:local_file) } }
+
+    initialize_with { new(local_file, engine_file) }
   end
 end
