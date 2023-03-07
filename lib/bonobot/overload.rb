@@ -1,3 +1,5 @@
+require "byebug"
+
 module Bonobot
   class Overload
     attr_reader :engine_file
@@ -12,14 +14,14 @@ module Bonobot
     end
 
     def status
-      return :missing if @engine_file.fingerprint.nil?
+      return :missing if @local_file.annotation.nil?
       return :up_to_date if @local_file.annotation == @engine_file.fingerprint
 
       :out_of_date
     end
 
     def to_hash
-      instance_values.merge({ status: status, path: path })
+      instance_values.merge({ "status" => status, "path" => path })
     end
   end
 end

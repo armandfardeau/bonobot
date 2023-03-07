@@ -3,6 +3,8 @@ require 'bonobot/local_file'
 require "rails"
 
 describe Bonobot::LocalFile do
+  subject(:local_file) { described_class.new(path) }
+
   let(:current_dir) { Dir.getwd }
   let(:path) { "#{current_dir}/spec/test_files/annoted_example_file.rb" }
 
@@ -12,20 +14,20 @@ describe Bonobot::LocalFile do
 
   describe ".new" do
     it "has a path" do
-      expect(described_class.new(path).path).to eq("spec/test_files/annoted_example_file.rb")
+      expect(local_file.path).to eq("spec/test_files/annoted_example_file.rb")
     end
   end
 
   describe "#annotation" do
     it "returns the annotation" do
-      expect(described_class.new(path).annotation).to eq("1234")
+      expect(local_file.annotation).to eq("1234")
     end
 
     context "when the file has no annotation" do
       let(:path) { "#{current_dir}/spec/test_files/example_file.rb" }
 
       it "returns nil" do
-        expect(described_class.new(path).annotation).to be_nil
+        expect(local_file.annotation).to be_nil
       end
     end
 
@@ -33,7 +35,7 @@ describe Bonobot::LocalFile do
       let(:path) { "#{current_dir}/spec/test_files/annoted_example_file.html.erb" }
 
       it "returns the annotation" do
-        expect(described_class.new(path).annotation).to eq("1234")
+        expect(local_file.annotation).to eq("1234")
       end
     end
   end

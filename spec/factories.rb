@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "bonobot/engine_file"
+require "bonobot/local_file"
+
 FactoryBot.define do
   Engine = Struct.new(:root, :railtie_namespace, :instance, :engine_name)
   EngineInstance = Struct.new(:root)
@@ -15,5 +18,18 @@ FactoryBot.define do
 
   factory :engine_instance do
     root { Dir.getwd }
+  end
+
+  factory :local_file, class: Bonobot::LocalFile do
+    path { "spec/test_files/example_file.rb" }
+
+    initialize_with { new(path, Dir.getwd) }
+  end
+
+  factory :engine_file, class: Bonobot::EngineFile do
+    path { "spec/test_files/example_file.rb" }
+    transient { engine { build(:engine) } }
+
+    initialize_with { new(path, engine) }
   end
 end

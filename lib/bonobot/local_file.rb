@@ -2,8 +2,8 @@ module Bonobot
   class LocalFile
     attr_reader :path
 
-    def initialize(path)
-      @path = path.sub("#{::Rails.root}/", "")
+    def initialize(path, root = ::Rails.root)
+      @path = path.sub("#{root}/", "")
     end
 
     def annotation
