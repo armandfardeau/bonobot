@@ -2,7 +2,7 @@
 
 require "spec_helper"
 require "rails"
-require "bonobot/local_files"
+require "bonobot/local_files_registry"
 
 describe LocalFiles do
   let(:root_path) { Pathname.new(Dir.getwd.to_s) }

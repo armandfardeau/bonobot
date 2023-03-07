@@ -9,38 +9,46 @@ module Bonobot
       puts "🙈 🙉 🙊 Bonobot 🙈 🙉 🙊"
       puts "-----"
       puts "🛠 Generating status"
-      File.write("status.json", JSON.pretty_generate({ rails_files: LocalFiles.files, engines_files: EnginesFiles.files, overloads: Overloads.files }))
+      File.write("status.json", status_json)
       puts File.expand_path("status.json")
       puts "-----"
 
-      unless Overloads.status(:up_to_date).empty?
-        puts "🥳 Up to date fingerprint count: #{Overloads.status(:up_to_date).count}"
-        puts "-> Up to date fingerprint: #{present(Overloads.status(:up_to_date))}"
+      unless OverloadsRegistry.find_by(status: :up_to_date).empty?
+        puts "🥳 Up to date fingerprint count: #{OverloadsRegistry.find_by(status: :up_to_date).count}"
+        puts "-> Up to date fingerprint: #{present(OverloadsRegistry.find_by(status: :up_to_date))}"
         puts ""
       end
 
-      unless Overloads.status(:out_of_date).empty?
-        puts "😱 Out of date fingerprint count: #{Overloads.status(:out_of_date).count}"
-        puts "-> Out of date fingerprint: #{present(Overloads.status(:out_of_date))}"
+      unless OverloadsRegistry.find_by(status: :out_of_date).empty?
+        puts "😱 Out of date fingerprint count: #{OverloadsRegistry.find_by(status: :out_of_date).count}"
+        puts "-> Out of date fingerprint: #{present(OverloadsRegistry.find_by(status: :out_of_date))}"
         puts ""
       end
 
-      unless Overloads.status(:missing).empty?
-        puts "🤬 Files missing fingerprint count: #{Overloads.status(:missing).count}"
-        puts "-> Missing fingerprint: #{present(Overloads.status(:missing))}"
+      unless OverloadsRegistry.find_by(status: :missing).empty?
+        puts "🤬 Files missing fingerprint count: #{OverloadsRegistry.find_by(status: :missing).count}"
+        puts "-> Missing fingerprint: #{present(OverloadsRegistry.find_by(status: :missing))}"
         puts ""
       end
 
       puts "-----"
-      Overloads.status(:out_of_date).empty? && Overloads.status(:missing).empty?
+      OverloadsRegistry.find_by(status: :out_of_date).empty? && OverloadsRegistry.find_by(status: :missing).empty?
     end
 
-    def self.present(entry)
-      entries = entry.map do |(engine_name, source_path)|
-        "  - #{engine_name}: #{source_path[:short_path]} (#{source_path[:fingerprint]})"
+    def self.present(entries)
+      entries = entries.map do |entry|
+        "  - #{entry.engine_file.engine_name}: #{entry.engine_file.short_path} (#{entry.engine_file.fingerprint})"
       end.join("\n")
 
       "\n#{entries}"
+    end
+
+    def self.status_json
+      JSON.pretty_generate({
+                             rails_files: LocalFilesRegistry.output,
+                             engines_files: EnginesFilesRegistry.output,
+                             overloads: OverloadsRegistry.output
+                           })
     end
   end
 end

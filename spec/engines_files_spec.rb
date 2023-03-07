@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "bonobot/engines_files"
+require "bonobot/engines_files_registry"
 require "rails/engine"
 
 describe EnginesFiles do

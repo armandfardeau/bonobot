@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "bonobot/overloads"
-require "bonobot/local_files"
-require "bonobot/engines_files"
+require "bonobot/overloads_registry"
+require "bonobot/local_files_registry"
+require "bonobot/engines_files_registry"
 
 describe Overloads do
   describe ".files" do
@@ -45,8 +45,8 @@ describe Overloads do
     end
 
     it "returns a hash" do
-      expect(Overloads.files).to be_a(Hash)
-      expect(Overloads.files).to eq({
+      expect(OverloadsRegistry.alls).to be_a(Hash)
+      expect(OverloadsRegistry.alls).to eq({
                                       missing: [
                                         ["dummy", { path: "dummy/app/overload.html.erb", fingerprint: "123456", short_path: "app/dummy/missing.html.erb" }],
                                         ["dummy", { path: "dummy/app/up_to_date.html.erb", fingerprint: "123456", short_path: "app/dummy/up_to_date.html.erb" }],
@@ -62,7 +62,7 @@ describe Overloads do
     end
 
     it "returns a hash with the status keys" do
-      expect(Overloads.files.keys).to eq([:missing, :up_to_date, :out_of_date])
+      expect(OverloadsRegistry.alls.keys).to eq([:missing, :up_to_date, :out_of_date])
     end
   end
 
