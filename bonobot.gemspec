@@ -19,12 +19,15 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  spec.add_dependency "parallel", "~> 1.22.1"
   spec.add_dependency "rails", "~> 6.0"
 
   spec.add_development_dependency "byebug", "~> 11.1"
-  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "factory_bot", "~> 6.2.1"
+  spec.add_development_dependency "rspec", "~> 3.12.0"
   spec.add_development_dependency "rubocop", "~> 1.30"
   spec.add_development_dependency "rubocop-faker", "~> 1.1.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.11.1"
-  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "simplecov", "~> 0.21.2"
+  spec.add_development_dependency "simplecov-cobertura", "~> 2.1.0"
 end

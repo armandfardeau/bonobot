@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 require "simplecov"
+require "simplecov-cobertura"
+require "factory_bot"
 
 SimpleCov.start
+
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter if ENV["CODECOV"]
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -12,4 +16,9 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
   config.shared_context_metadata_behavior = :apply_to_host_groups
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 end
