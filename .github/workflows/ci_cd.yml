@@ -15,7 +15,7 @@ jobs:
         if: "github.ref != 'refs/heads/develop'"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - uses: actions/checkout@v2.0.0
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
       - uses: ruby/setup-ruby@v1
@@ -32,7 +32,7 @@ jobs:
         if: "github.ref != 'refs/heads/develop'"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - uses: actions/checkout@v2.0.0
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
       - uses: ruby/setup-ruby@v1
@@ -42,12 +42,33 @@ jobs:
         run: bundle exec rspec
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
-  release:
-    if: "github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'"
-    needs: [lint, tests]
+  build_doc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.0.0
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Build with RDoc
+        # Outputs to the './_site' directory by default
+        run: bundle exec rake rdoc
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: rdoc
+  release:
+    if: "github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'"
+    needs: [lint, tests, build_doc]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
       - uses: ruby/setup-ruby@v1
@@ -69,11 +90,24 @@ jobs:
           git push --tags
       - name: Create release
         run: gh release create ${{ steps.set_tag.outputs.tag }} --generate-notes
+  deploy_rdoc:
+    needs: [build_doc, release]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
   publish:
     needs: release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
