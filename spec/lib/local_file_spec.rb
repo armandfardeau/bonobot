@@ -3,7 +3,7 @@ require 'bonobot/local_file'
 require "rails"
 
 describe Bonobot::LocalFile do
-  subject(:local_file) { described_class.new(path) }
+  subject(:local_file) { described_class.new(path, current_dir) }
 
   let(:current_dir) { Dir.getwd }
   let(:path) { "#{current_dir}/spec/test_files/annoted_example_file.rb" }
