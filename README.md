@@ -5,30 +5,39 @@
 BonoBot is a Ruby gem that helps with Rails monkey patching.
 
 ## Usage
-
+### Status
+#### Generate all status:
 ```bash
 bundle exec rake bonobot: status
 ```
+#### Generate a specific status:
+```bash    
+bundle exec rake bonobot:status:out_of_date
+bundle exec rake bonobot:status:up_to_date 
+bundle exec rake bonobot:update_out_of_date
+```
+
+### Add missing
+```bash
+bundle exec rake bonobot:add_missing
+```
+
+### Update out of date
+```bash
+bundle exec rake bonobot:update_out_of_date
+```
 
 ## Installation
-
 Add this line to your application's Gemfile:
 
 ```ruby
 gem 'bonobot'
 ```
 
-And then execute:
-
-```bash
-bundle exec rake bonobot:status
-```
-
 Or install it yourself as:
 
 ```bash
 gem install bonobot
-bundle exec rake bonobot:status
 ```
 
 ## Contributing
