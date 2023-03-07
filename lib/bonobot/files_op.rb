@@ -15,7 +15,7 @@ module Bonobot
 
     def self.add_missing
       missing.each do |overload|
-        Annotator.annotate(root.join(overload.path), overload.engine_file.fingerprint)
+        Annotator.add_annotation(root.join(overload.path), overload.engine_file.fingerprint)
       end
     end
 
