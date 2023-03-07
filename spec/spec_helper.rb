@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require "simplecov"
+require "simplecov-cobertura"
 require "factory_bot"
 
 SimpleCov.start
+
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter if ENV["CODECOV"]
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

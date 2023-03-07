@@ -40,6 +40,8 @@ jobs:
           bundler-cache: true
       - name: Run Specs
         run: bundle exec rspec
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
   release:
     if: "github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'"
     needs: [lint]

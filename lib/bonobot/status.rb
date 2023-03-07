@@ -31,6 +31,7 @@ module Bonobot
 
     def self.generate_status(status, emoji)
       return if OverloadsRegistry.find_by(status: status).empty?
+
       overload_status = OverloadsRegistry.find_by(status: status)
       status_to_text = status.to_s.capitalize.gsub("_", " ")
 

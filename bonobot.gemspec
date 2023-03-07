@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-faker", "~> 1.1.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.11.1"
   spec.add_development_dependency "simplecov", "~> 0.21.2"
+  spec.add_development_dependency "simplecov-cobertura", "~> 2.1.0"
 end
