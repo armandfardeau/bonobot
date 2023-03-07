@@ -13,7 +13,7 @@ namespace :bonobot do
       Bonobot::Status.generate(:out_of_date)
     end
 
-    task :outdated => :out_of_date
+    task outdated: :out_of_date
 
     desc "Generate status for missing"
     task missing: :environment do
@@ -25,6 +25,19 @@ namespace :bonobot do
       Bonobot::Status.generate(:up_to_date)
     end
 
-    task :uptodate => :up_to_date
+    task uptodate: :up_to_date
   end
+
+  desc "Add missing fingerprint to local files"
+  task add_missing: :environment do
+    Bonobot::FilesOp.add_missing
+  end
+
+  desc "Update out of date fingerprint to local files"
+  task update_out_of_date: :environment do
+    Bonobot::FilesOp.update_out_of_date
+  end
+
+  task update_outdated: :update_out_of_date
+  task update: :update_out_of_date
 end

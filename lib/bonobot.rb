@@ -10,4 +10,6 @@ module Bonobot
   autoload :EngineFile, "bonobot/engine_file"
   autoload :OverloadsRegistry, "bonobot/overloads_registry"
   autoload :Overload, "bonobot/overload"
+  autoload :FilesOp, "bonobot/files_op"
+  autoload :Annotator, "bonobot/annotator"
 end

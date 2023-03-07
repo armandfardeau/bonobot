@@ -18,8 +18,8 @@ module Bonobot
       if status
         generate_status(status.to_sym, STATUS[status.to_sym])
       else
-        STATUS.each do |status, emoji|
-          generate_status(status, emoji)
+        STATUS.each do |status_type, emoji|
+          generate_status(status_type, emoji)
         end
       end
 
