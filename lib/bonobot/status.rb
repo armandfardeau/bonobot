@@ -4,6 +4,8 @@ require "json"
 
 module Bonobot
   class Status
+    STATUS = { up_to_date: "🥳", out_of_date: "😱", missing: "🤬" }.freeze
+
     def self.generate
       puts "-----"
       puts "🙈 🙉 🙊 Bonobot 🙈 🙉 🙊"
@@ -13,22 +15,8 @@ module Bonobot
       puts File.expand_path("status.json")
       puts "-----"
 
-      unless OverloadsRegistry.find_by(status: :up_to_date).empty?
-        puts "🥳 Up to date fingerprint count: #{OverloadsRegistry.find_by(status: :up_to_date).count}"
-        puts "-> Up to date fingerprint: #{present(OverloadsRegistry.find_by(status: :up_to_date))}"
-        puts ""
-      end
-
-      unless OverloadsRegistry.find_by(status: :out_of_date).empty?
-        puts "😱 Out of date fingerprint count: #{OverloadsRegistry.find_by(status: :out_of_date).count}"
-        puts "-> Out of date fingerprint: #{present(OverloadsRegistry.find_by(status: :out_of_date))}"
-        puts ""
-      end
-
-      unless OverloadsRegistry.find_by(status: :missing).empty?
-        puts "🤬 Files missing fingerprint count: #{OverloadsRegistry.find_by(status: :missing).count}"
-        puts "-> Missing fingerprint: #{present(OverloadsRegistry.find_by(status: :missing))}"
-        puts ""
+      STATUS.each do |status, emoji|
+        generate_status(status, emoji)
       end
 
       puts "-----"
@@ -36,11 +24,19 @@ module Bonobot
     end
 
     def self.present(entries)
-      entries = entries.map do |entry|
+      entries.map do |entry|
         "  - #{entry.engine_file.engine_name}: #{entry.engine_file.short_path} (#{entry.engine_file.fingerprint})"
       end.join("\n")
+    end
 
-      "\n#{entries}"
+    def self.generate_status(status, emoji)
+      return if OverloadsRegistry.find_by(status: status).empty?
+      overload_status = OverloadsRegistry.find_by(status: status)
+      status_to_text = status.to_s.capitalize.gsub("_", " ")
+
+      puts "-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):"
+      puts present(OverloadsRegistry.find_by(status: status))
+      puts ""
     end
 
     def self.status_json
