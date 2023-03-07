@@ -14,6 +14,7 @@ describe Bonobot::LocalFilesRegistry do
     it "returns an array" do
       expect(registry.all).to be_an(Array)
       expect(registry.all.first).to be_a(Bonobot::LocalFile)
+      expect(registry.all.count).to eq(5)
     end
   end
 

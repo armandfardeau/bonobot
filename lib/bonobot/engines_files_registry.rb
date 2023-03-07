@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require "byebug"
+
 module Bonobot
   class EnginesFilesRegistry
     def self.all
       @all ||= Parallel.flat_map(::Rails::Engine.subclasses) do |klass|
         # TODO: Deduplicate files
-        Dir.glob("#{klass.instance.root}/app/**/*.{erb,rb}").map do |path|
+        Dir.glob(root(klass.instance.root).join("**", "*.{erb,rb}")).map do |path|
           EngineFile.new(path, klass)
         end
       end
@@ -21,6 +23,10 @@ module Bonobot
 
     def self.output
       all.map(&:as_json)
+    end
+
+    def self.root(path)
+      Pathname.new(path).join("app")
     end
   end
 end
