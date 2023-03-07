@@ -6,10 +6,12 @@ require "bonobot/engines_files_registry"
 describe Bonobot::EnginesFilesRegistry do
   subject(:registry) { described_class }
 
-  let(:engine) { build(:engine) }
+  let(:engine1) { build(:engine, engine_name: "DummyEngine1") }
+  let(:engine2) { build(:engine, engine_name: "DummyEngine2") }
+  let(:engine3) { build(:engine, engine_name: "DummyEngine3") }
 
   before do
-    allow(::Rails::Engine).to receive(:subclasses).and_return([engine])
+    allow(::Rails::Engine).to receive(:subclasses).and_return([engine1, engine2, engine3])
     allow(Bonobot::EnginesFilesRegistry).to receive(:root).and_return(Pathname.new("spec/test_files"))
   end
 
@@ -18,6 +20,14 @@ describe Bonobot::EnginesFilesRegistry do
       expect(registry.all).to be_an(Array)
       expect(registry.all.first).to be_a(Bonobot::EngineFile)
       expect(registry.all.count).to eq(5)
+    end
+  end
+
+  describe ".generate" do
+    it "returns an array" do
+      expect(registry.generate).to be_an(Array)
+      expect(registry.generate.first).to be_a(Bonobot::EngineFile)
+      expect(registry.generate.count).to eq(15)
     end
   end
 

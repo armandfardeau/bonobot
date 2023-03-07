@@ -3,12 +3,19 @@
 module Bonobot
   class EnginesFilesRegistry
     def self.all
-      @all ||= Parallel.flat_map(::Rails::Engine.subclasses) do |klass|
-        # TODO: Deduplicate files
+      @all ||= deduplicate(generate)
+    end
+
+    def self.generate
+      Parallel.flat_map(::Rails::Engine.subclasses) do |klass|
         Dir.glob(root(klass.instance.root).join("**", "*.{erb,rb}")).map do |path|
           EngineFile.new(path, klass)
         end
       end
+    end
+
+    def self.deduplicate(engine_files)
+      engine_files.group_by(&:path).map { |_, files| files.min_by(&:engine_name) }
     end
 
     def self.find_by(attributes)
