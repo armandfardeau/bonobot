@@ -14,7 +14,7 @@ module Bonobot
     end
 
     def to_hash
-      instance_values.merge({ fingerprint: fingerprint })
+      instance_values.merge({ "fingerprint" => fingerprint })
     end
 
     private
