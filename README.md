@@ -1,6 +1,6 @@
 # Bonobot
 ![ci_cd](https://github.com/armandfardeau/bonobot/actions/workflows/ci_cd.yml/badge.svg)
-
+[![codecov](https://codecov.io/gh/armandfardeau/bonobot/branch/master/graph/badge.svg?token=274POQGBAK)](https://codecov.io/gh/armandfardeau/bonobot)
 
 BonoBot is a Ruby gem that helps with Rails monkey patching.
 
