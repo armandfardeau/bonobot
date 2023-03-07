@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bonobot
   class LocalFile
     attr_reader :path

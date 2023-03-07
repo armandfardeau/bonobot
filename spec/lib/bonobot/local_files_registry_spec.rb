@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require "bonobot/local_files_registry"
 require "rails"

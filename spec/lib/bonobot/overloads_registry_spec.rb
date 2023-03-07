@@ -1,9 +1,11 @@
-require 'spec_helper'
-require 'bonobot/overloads_registry'
-require 'bonobot/local_files_registry'
-require 'bonobot/engines_files_registry'
-require 'bonobot/overload'
-require 'rails'
+# frozen_string_literal: true
+
+require "spec_helper"
+require "bonobot/overloads_registry"
+require "bonobot/local_files_registry"
+require "bonobot/engines_files_registry"
+require "bonobot/overload"
+require "rails"
 
 describe Bonobot::OverloadsRegistry do
   subject(:registry) { described_class }

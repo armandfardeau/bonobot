@@ -3,7 +3,6 @@
 require "spec_helper"
 require "bonobot/engine_file"
 require "rails"
-require "byebug"
 
 describe Bonobot::EngineFile do
   subject(:engine_file) { described_class.new(path, engine) }
@@ -40,7 +39,7 @@ describe Bonobot::EngineFile do
 
   describe "#fingerprint" do
     it "has a fingerprint" do
-      expect(engine_file.fingerprint).to eq("1297466377ffdf1ccf1ad4995f984f78")
+      expect(engine_file.fingerprint).to eq("a0b74d09e2e0c75465ac4e9fca741208")
     end
   end
 
@@ -48,7 +47,7 @@ describe Bonobot::EngineFile do
     it "has a hash" do
       expect(engine_file.to_hash).to match({
                                              "engine_name" => "dummy",
-                                             "fingerprint" => "1297466377ffdf1ccf1ad4995f984f78",
+                                             "fingerprint" => "a0b74d09e2e0c75465ac4e9fca741208",
                                              "path" => path,
                                              "short_path" => "spec/test_files/example_file.rb",
                                              "root_path" => current_dir

@@ -1,5 +1,7 @@
-require 'spec_helper'
-require 'bonobot/local_file'
+# frozen_string_literal: true
+
+require "spec_helper"
+require "bonobot/local_file"
 require "rails"
 
 describe Bonobot::LocalFile do

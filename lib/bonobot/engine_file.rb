@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bonobot
   class EngineFile
     attr_reader :path, :engine_name, :short_path, :root_path

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+
 require "parallel"
-require "byebug"
 
 module Bonobot
   class LocalFilesRegistry

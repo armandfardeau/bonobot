@@ -1,4 +1,4 @@
-require "byebug"
+# frozen_string_literal: true
 
 module Bonobot
   class Overload
