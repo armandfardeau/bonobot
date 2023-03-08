@@ -31,12 +31,14 @@ module Bonobot
     end
 
     def generate_status(status, emoji)
-      return if OverloadsRegistry.find_by(status: status).empty?
-
       overload_status = OverloadsRegistry.find_by(status: status)
       status_to_text = status.to_s.capitalize.gsub("_", " ")
 
-      ["-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):", present(OverloadsRegistry.find_by(status: status))]
+      if overload_status.empty?
+        ["-> #{emoji} #{status_to_text} : All good!"]
+      else
+        ["-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):", present(OverloadsRegistry.find_by(status: status))]
+      end
     end
 
     def status_json
@@ -52,7 +54,7 @@ module Bonobot
     end
 
     def display_banner
-      [display_intro + display_status + display_outro].join("\n")
+      [display_intro + display_status.join("\n") + display_outro].join("\n")
     end
 
     def display_intro
@@ -65,7 +67,7 @@ module Bonobot
       else
         STATUS.map do |status_type, emoji|
           generate_status(status_type, emoji)
-        end.join("\n")
+        end
       end
     end
 
