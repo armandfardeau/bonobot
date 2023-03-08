@@ -8,14 +8,14 @@ BonoBot is a Ruby gem that helps with Rails monkey patching.
 ### Status
 #### Generate all status:
 ```bash
-bundle exec rake bonobot: status
+bundle exec rake bonobot:status
 ```
 #### Generate a specific status:
 ```bash    
-bundle exec rake bonobot:status:out_of_date
 bundle exec rake bonobot:status:up_to_date 
-bundle exec rake bonobot:update_out_of_date
-bundle exec rake bonobot:unused
+bundle exec rake bonobot:status:out_of_date
+bundle exec rake bonobot:status:missing
+bundle exec rake bonobot:status:unused
 ```
 
 ### Add missing
