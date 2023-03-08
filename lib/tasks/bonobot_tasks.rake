@@ -45,4 +45,10 @@ namespace :bonobot do
 
   task update_outdated: :update_out_of_date
   task update: :update_out_of_date
+
+  desc "Install bonobot"
+  task install: :environment do
+    dir = Gem::Specification.find_by_name("bonobot").gem_dir
+    FileUtils.cp_r File.join(dir, "bonobot_configuration_example.yml"), ".bonobot.yml"
+  end
 end

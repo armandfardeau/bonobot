@@ -20,7 +20,7 @@ module Bonobot::Configuration
 
     def initialize
       @status_file_path = config_value_for(:status_file_path, Rails.root)
-      @status_file_name = config_value_for(:status_file_name, "status.json")
+      @status_file_name = "#{config_value_for(:status_file_name, "status")}.json"
       @included_dirs = "{#{config_value_for(:included_dirs, ["app"]).join(",")}}"
       @files_pattern = "{#{config_value_for(:files_pattern, %w(rb erb)).join(",")}}"
     end

@@ -1,0 +1,13 @@
+############################################
+#        Bonobot configuration file        #
+# This file is used to configure Bonobot   #
+# https://github.com/armandfardeau/bonobot #
+############################################
+
+#####    Status file configuration    ######
+# status_file_path: "" # default to Rails.root
+# status_file_name: "" # default to 'status'
+
+##### Overload matching configuration ######
+# included_dirs: [] # default to ['app']
+# files_pattern: [] # default to ['rb', 'erb']
