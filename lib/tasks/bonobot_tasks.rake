@@ -26,6 +26,11 @@ namespace :bonobot do
     end
 
     task uptodate: :up_to_date
+
+    desc "Generate status for unused"
+    task unused: :environment do
+      Bonobot::Status.generate(:unused)
+    end
   end
 
   desc "Add missing fingerprint to local files"

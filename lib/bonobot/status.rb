@@ -36,9 +36,9 @@ module Bonobot
       status_to_text = status.to_s.capitalize.gsub("_", " ")
 
       if overload_status.empty?
-        ["-> #{emoji} #{status_to_text} : All good!"]
+        ["-> #{emoji} #{status_to_text} : All good! \n"]
       else
-        ["-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):", present(OverloadsRegistry.find_by(status: status))]
+        ["-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):", present(OverloadsRegistry.find_by(status: status)), ""]
       end
     end
 
