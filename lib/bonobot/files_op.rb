@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "bonobot/overloads_registry"
-require "bonobot/annotator"
-
 module Bonobot
   class FilesOp
     def self.missing

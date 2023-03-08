@@ -28,6 +28,11 @@ bundle exec rake bonobot:add_missing
 bundle exec rake bonobot:update_out_of_date
 ```
 
+### Customization
+```bash
+bundle exec rake bonobot:install
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 

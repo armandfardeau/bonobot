@@ -12,4 +12,9 @@ module Bonobot
   autoload :Overload, "bonobot/overload"
   autoload :FilesOp, "bonobot/files_op"
   autoload :Annotator, "bonobot/annotator"
+  autoload :Configuration, "bonobot/configuration"
+  autoload :Findable, "bonobot/findable"
+  autoload :Outputable, "bonobot/outputable"
+  autoload :Reloadable, "bonobot/reloadable"
+  autoload :Fingerprint, "bonobot/fingerprint"
 end

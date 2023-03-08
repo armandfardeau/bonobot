@@ -2,17 +2,14 @@
 
 module Bonobot
   class EngineFile
-    attr_reader :path, :engine_name, :short_path, :root_path
+    attr_reader :path, :engine_name, :short_path, :root_path, :fingerprint
 
     def initialize(path, engine)
       @path = path
       @root_path = engine.instance.root
       @engine_name = engine_to_name(engine)
       @short_path = path.sub("#{@root_path}/", "")
-    end
-
-    def fingerprint
-      Digest::MD5.hexdigest(File.read(@path))
+      @fingerprint = Bonobot::Fingerprint.calculate(path)
     end
 
     def to_hash

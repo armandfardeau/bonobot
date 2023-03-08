@@ -1,25 +1,22 @@
 # frozen_string_literal: true
 
-require "parallel"
-
 module Bonobot
   class LocalFilesRegistry
+    include Bonobot::Configuration
+    include Bonobot::Outputable
+    include Bonobot::Reloadable
+
     def self.all
-      @all ||= Parallel.map(Dir.glob(root.join("**", "*.{erb,rb}"))) do |path|
-        LocalFile.new(path, rails_root)
-      end
+      @all ||= Parallel.map(Dir.glob(root.join("**", "*.#{file_pattern}"))) { |path| LocalFile.new(path, ::Rails.root) }
+                       .reject { |local_file| configuration.excluded_files.include?(local_file.path) }
     end
 
     def self.root
-      rails_root.join("app")
+      ::Rails.root.join(configuration.included_dirs)
     end
 
-    def self.rails_root
-      ::Rails.root
-    end
-
-    def self.output
-      all.map(&:as_json)
+    def self.file_pattern
+      configuration.files_pattern
     end
   end
 end
