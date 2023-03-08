@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "bonobot/overload"
-require "rails"
 
 describe Bonobot::Overload do
   subject(:overload) { described_class.new(local_file, engine_file) }

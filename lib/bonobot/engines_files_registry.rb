@@ -2,13 +2,15 @@
 
 module Bonobot
   class EnginesFilesRegistry
+    include Bonobot::Configuration
+
     def self.all
       @all ||= deduplicate(generate)
     end
 
     def self.generate
       Parallel.flat_map(::Rails::Engine.subclasses) do |klass|
-        Dir.glob(root(klass.instance.root).join("**", "*.{erb,rb}")).map do |path|
+        Dir.glob(root(klass.instance.root).join("**", "*.#{file_pattern}")).map do |path|
           EngineFile.new(path, klass)
         end
       end
@@ -31,7 +33,11 @@ module Bonobot
     end
 
     def self.root(path)
-      Pathname.new(path).join("app")
+      Pathname.new(path).join(self.configuration.included_files)
+    end
+
+    def self.file_pattern
+      self.configuration.files_pattern
     end
   end
 end

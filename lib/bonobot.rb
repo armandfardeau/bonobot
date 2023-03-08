@@ -12,4 +12,5 @@ module Bonobot
   autoload :Overload, "bonobot/overload"
   autoload :FilesOp, "bonobot/files_op"
   autoload :Annotator, "bonobot/annotator"
+  autoload :Configuration, "bonobot/configuration"
 end
