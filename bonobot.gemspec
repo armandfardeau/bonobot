@@ -16,9 +16,6 @@ Gem::Specification.new do |spec|
   spec.description = "Description of Bonobot."
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.5.0"
-  spec.metadata = {
-    "documentation_uri" => "https://github.com/armandfardeau/bonobo"
-  }
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 

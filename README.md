@@ -15,6 +15,7 @@ bundle exec rake bonobot: status
 bundle exec rake bonobot:status:out_of_date
 bundle exec rake bonobot:status:up_to_date 
 bundle exec rake bonobot:update_out_of_date
+bundle exec rake bonobot:unused
 ```
 
 ### Add missing
