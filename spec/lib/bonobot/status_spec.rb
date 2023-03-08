@@ -5,6 +5,15 @@ describe Bonobot::Status do
   subject(:status) { described_class.new(status_key) }
 
   let(:status_key) { nil }
+  let(:status_file_path) { "spec/status.json" }
+
+  before do
+    stub_const("Bonobot::Status::STATUS_FILE_PATH", status_file_path)
+  end
+
+  after do
+    FileUtils.rm status_file_path if File.exist?(status_file_path)
+  end
 
   describe "#display_intro" do
     it "returns a string" do
@@ -34,9 +43,29 @@ describe Bonobot::Status do
     end
   end
 
+  describe "#display_banner" do
+    it "returns a string" do
+      expect(subject.display_banner).to be_a(String)
+    end
+  end
+
   describe "#return_status_code" do
     it "returns a string" do
       expect(subject.return_status_code).to be_falsey
+    end
+  end
+
+  describe "#status_json" do
+    it "returns a string" do
+      expect(subject.status_json).to be_a(String)
+    end
+  end
+
+  describe "#generate_status_file" do
+    it "creates a file" do
+      old_count = Dir[status_file_path].count
+      subject.generate_status_file
+      expect(Dir[status_file_path].count).to eq(old_count + 1)
     end
   end
 end

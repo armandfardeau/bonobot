@@ -5,6 +5,7 @@ require "json"
 module Bonobot
   class Status
     STATUS = { up_to_date: "🥳", out_of_date: "😱", unused: "😅", missing: "🤬" }.freeze
+    STATUS_FILE_PATH = "status.json"
 
     def self.generate(status = nil)
       new(status).generate
@@ -50,7 +51,7 @@ module Bonobot
     end
 
     def generate_status_file
-      File.write("status.json", status_json)
+      File.write(STATUS_FILE_PATH, status_json)
     end
 
     def display_banner
