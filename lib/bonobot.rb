@@ -16,4 +16,5 @@ module Bonobot
   autoload :Findable, "bonobot/findable"
   autoload :Outputable, "bonobot/outputable"
   autoload :Reloadable, "bonobot/reloadable"
+  autoload :Fingerprint, "bonobot/fingerprint"
 end

@@ -11,3 +11,7 @@
 ##### Overload matching configuration ######
 # included_dirs: [] # default to ['app']
 # files_pattern: [] # default to ['rb', 'erb']
+
+# Fingerprint configuration
+# fingerprint_algorithm: "md5" # default to "md5", available: "md5", "sha1", "sha256"
+# fingerprint_human_readable: false # default to false, available: true, false
