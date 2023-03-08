@@ -43,7 +43,7 @@ describe Bonobot::Configuration do
 
   describe "#fingerprint_algorithm" do
     it "returns the files pattern" do
-      expect(configuration.instance_variable_get(:@fingerprint_human_readable)).to eq(false)
+      expect(configuration.instance_variable_get(:@fingerprint_human_readable)).to be(false)
     end
   end
 
@@ -108,7 +108,7 @@ describe Bonobot::Configuration do
 
     describe "#fingerprint_human_readable" do
       it "returns the files pattern" do
-        expect(configuration.instance_variable_get(:@fingerprint_human_readable)).to eq(true)
+        expect(configuration.instance_variable_get(:@fingerprint_human_readable)).to be(true)
       end
     end
   end
