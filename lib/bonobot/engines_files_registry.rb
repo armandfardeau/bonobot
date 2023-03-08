@@ -33,7 +33,7 @@ module Bonobot
     end
 
     def self.root(path)
-      Pathname.new(path).join(self.configuration.included_files)
+      Pathname.new(path).join(self.configuration.included_dirs)
     end
 
     def self.file_pattern
