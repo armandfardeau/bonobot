@@ -7,9 +7,8 @@ module Bonobot
     include Bonobot::Reloadable
 
     def self.all
-      @all ||= Parallel.map(Dir.glob(root.join("**", "*.#{file_pattern}"))) do |path|
-        LocalFile.new(path, ::Rails.root)
-      end
+      @all ||= Parallel.map(Dir.glob(root.join("**", "*.#{file_pattern}"))) { |path| LocalFile.new(path, ::Rails.root) }
+                       .reject { |local_file| configuration.excluded_files.include?(local_file.path) }
     end
 
     def self.root

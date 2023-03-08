@@ -8,10 +8,11 @@ module Bonobot
 
     def self.all
       @all ||= LocalFilesRegistry.all.flat_map do |local_file|
-        next if local_file.nil? || local_file.annotation.nil?
+        next if local_file.nil?
 
         engines_files = EnginesFilesRegistry.find_by(short_path: local_file.path)
-        if engines_files.empty?
+
+        if engines_files.empty? && local_file.annotation.present?
           Overload.new(local_file, nil)
         else
           engines_files.map do |engine_file|

@@ -8,7 +8,7 @@ module Bonobot
     include Bonobot::Reloadable
 
     def self.all
-      @all ||= deduplicate(generate)
+      @all ||= deduplicate(generate).reject { |engine_file| configuration.excluded_files.include?(engine_file.short_path) }
     end
 
     def self.generate

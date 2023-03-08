@@ -60,7 +60,7 @@ module Bonobot
     end
 
     def display_intro
-      "-----\n🙈 🙉 🙊 Bonobot 🙈 🙉 🙊\n-----\n\n🛠 Generating status\n#{File.expand_path("status.json")}\n-----\n\n"
+      "-----\n🙈 🙉 🙊 Bonobot 🙈 🙉 🙊\n-----\n\n🛠 Generating status\n#{File.expand_path(self.class.configuration.status_file)}\n-----\n\n"
     end
 
     def display_status
