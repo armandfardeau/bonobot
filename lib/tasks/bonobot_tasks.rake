@@ -49,7 +49,7 @@ namespace :bonobot do
   desc "Install bonobot"
   task install: :environment do
     dir = Gem::Specification.find_by_name("bonobot").gem_dir
-    FileUtils.cp_r File.join(dir, "bonobot_configuration_example.yml"), ".bonobot.yml"
+    FileUtils.cp_r File.join(dir, "config", "bonobot_configuration_example.yml"), ".bonobot.yml"
     puts "Bonobot configuration installed at .bonobot.yml"
   end
 end
