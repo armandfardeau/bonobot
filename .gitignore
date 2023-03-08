@@ -8,5 +8,3 @@ dummy_path/log/*.log
 dummy_path/storage/
 dummy_path/tmp/
 coverage/
-doc/
-rdoc/
