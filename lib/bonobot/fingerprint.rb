@@ -12,7 +12,7 @@ module Bonobot::Fingerprint
   end
 
   def self.method
-    if configuration.fingerprint_human_readable == "bubblebabble"
+    if configuration.fingerprint_human_readable
       :bubblebabble
     else
       :hexdigest

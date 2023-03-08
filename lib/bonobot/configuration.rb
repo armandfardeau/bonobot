@@ -19,12 +19,12 @@ module Bonobot::Configuration
     attr_accessor :included_dirs, :files_pattern, :fingerprint_algorithm, :fingerprint_human_readable
 
     def initialize
-      @status_file_path = config_value_for(:status_file_path, Rails.root)
-      @status_file_name = "#{config_value_for(:status_file_name, "status")}.json"
-      @included_dirs = "{#{config_value_for(:included_dirs, ["app"]).join(",")}}"
-      @files_pattern = "{#{config_value_for(:files_pattern, %w(rb erb)).join(",")}}"
-      @fingerprint_algorithm = config_value_for(:fingerprint_algorithm, "md5")
-      @fingerprint_human_readable = config_value_for(:fingerprint_human_readable, false)
+      @status_file_path = config_value_for("status_file_path", Rails.root)
+      @status_file_name = "#{config_value_for("status_file_name", "status")}.json"
+      @included_dirs = "{#{config_value_for("included_dirs", ["app"]).join(",")}}"
+      @files_pattern = "{#{config_value_for("files_pattern", %w(rb erb)).join(",")}}"
+      @fingerprint_algorithm = config_value_for("fingerprint_algorithm", "md5")
+      @fingerprint_human_readable = config_value_for("fingerprint_human_readable", false)
     end
 
     def status_file

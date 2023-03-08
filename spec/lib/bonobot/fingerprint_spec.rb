@@ -36,7 +36,7 @@ describe Bonobot::Fingerprint do
 
         context "when method is bubblebabble" do
           before do
-            allow(Bonobot::Fingerprint.configuration).to receive(:fingerprint_human_readable).and_return("bubblebabble")
+            allow(Bonobot::Fingerprint.configuration).to receive(:fingerprint_human_readable).and_return(true)
           end
 
           it "returns a fingerprint" do

@@ -61,12 +61,12 @@ describe Bonobot::Configuration do
 
     before do
       allow(described_class::Configuration).to receive(:config_file).and_return({
-                                                                                  status_file_path: status_file_path,
-                                                                                  status_file_name: status_file_name,
-                                                                                  included_dirs: included_dirs,
-                                                                                  files_pattern: files_pattern,
-                                                                                  fingerprint_algorithm: "sha1",
-                                                                                  fingerprint_human_readable: true
+                                                                                  "status_file_path" => status_file_path,
+                                                                                  "status_file_name" => status_file_name,
+                                                                                  "included_dirs" => included_dirs,
+                                                                                  "files_pattern" => files_pattern,
+                                                                                  "fingerprint_algorithm" => "sha1",
+                                                                                  "fingerprint_human_readable" => true
                                                                                 })
     end
 
