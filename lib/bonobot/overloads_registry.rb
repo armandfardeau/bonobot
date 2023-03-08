@@ -4,10 +4,17 @@ module Bonobot
   module OverloadsRegistry
     def self.all
       @all ||= LocalFilesRegistry.all.flat_map do |local_file|
-        EnginesFilesRegistry.find_by(short_path: local_file.path).map do |engine_file|
-          Overload.new(local_file, engine_file)
+        next if local_file.nil? || local_file.annotation.nil?
+
+        engines_files = EnginesFilesRegistry.find_by(short_path: local_file.path)
+        if engines_files.empty?
+          Overload.new(local_file, nil)
+        else
+          engines_files.map do |engine_file|
+            Overload.new(local_file, engine_file)
+          end
         end
-      end
+      end.compact
     end
 
     # TODO: Extract to module
@@ -21,6 +28,10 @@ module Bonobot
 
     def self.output
       all.map(&:as_json)
+    end
+
+    def self.reload
+      @all = nil
     end
   end
 end

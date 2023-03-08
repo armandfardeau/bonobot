@@ -14,6 +14,7 @@ module Bonobot
     end
 
     def status
+      return :unused if @engine_file.nil?
       return :missing if @local_file.annotation.nil?
       return :up_to_date if @local_file.annotation == @engine_file.fingerprint
 
