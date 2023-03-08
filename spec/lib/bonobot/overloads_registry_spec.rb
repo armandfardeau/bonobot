@@ -6,12 +6,14 @@ require "bonobot/local_files_registry"
 require "bonobot/engines_files_registry"
 require "bonobot/overload"
 require "rails"
+require "byebug"
 
 describe Bonobot::OverloadsRegistry do
   subject(:registry) { described_class }
 
   let(:engine_file) { build(:engine_file) }
-  let(:local_file) { build(:local_file) }
+  let(:path) { "spec/test_files/annoted_example_file.rb" }
+  let(:local_file) { build(:local_file, path: path) }
 
   before do
     allow(Bonobot::EnginesFilesRegistry).to receive(:all).and_return([engine_file])
@@ -32,8 +34,6 @@ describe Bonobot::OverloadsRegistry do
   end
 
   describe ".find_by" do
-    let(:path) { "spec/test_files/example_file.rb" }
-
     it "returns an array" do
       expect(registry.find_by(path: path)).to be_an(Array)
       expect(registry.find_by(path: path).first).to be_a(Bonobot::Overload)

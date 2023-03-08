@@ -4,52 +4,77 @@ require "json"
 
 module Bonobot
   class Status
-    STATUS = { up_to_date: "🥳", out_of_date: "😱", missing: "🤬" }.freeze
+    STATUS = { up_to_date: "🥳", out_of_date: "😱", unused: "😅", missing: "🤬" }.freeze
 
     def self.generate(status = nil)
-      puts "-----"
-      puts "🙈 🙉 🙊 Bonobot 🙈 🙉 🙊"
-      puts "-----"
-      puts "🛠 Generating status"
-      File.write("status.json", status_json)
-      puts File.expand_path("status.json")
-      puts "-----"
-
-      if status
-        generate_status(status.to_sym, STATUS[status.to_sym])
-      else
-        STATUS.each do |status_type, emoji|
-          generate_status(status_type, emoji)
-        end
-      end
-
-      puts "-----"
-      OverloadsRegistry.find_by(status: :out_of_date).empty? && OverloadsRegistry.find_by(status: :missing).empty?
+      new(status).generate
     end
 
-    def self.present(entries)
+    def initialize(status)
+      @status = status
+    end
+
+    def generate
+      generate_status_file
+      puts display_banner
+      return_status_code
+    end
+
+    def present(entries)
       entries.map do |entry|
-        "  - #{entry.engine_file.engine_name}: #{entry.engine_file.short_path} (#{entry.engine_file.fingerprint})"
+        if entry.engine_file.nil?
+          "  - #{entry.path} (unused)"
+        else
+          "  - #{entry.engine_file.engine_name}: #{entry.engine_file.short_path} (#{entry.engine_file.fingerprint})"
+        end
       end.join("\n")
     end
 
-    def self.generate_status(status, emoji)
+    def generate_status(status, emoji)
       return if OverloadsRegistry.find_by(status: status).empty?
 
       overload_status = OverloadsRegistry.find_by(status: status)
       status_to_text = status.to_s.capitalize.gsub("_", " ")
 
-      puts "-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):"
-      puts present(OverloadsRegistry.find_by(status: status))
-      puts ""
+      ["-> #{emoji} #{status_to_text} fingerprint (#{overload_status.count}):", present(OverloadsRegistry.find_by(status: status))]
     end
 
-    def self.status_json
+    def status_json
       JSON.pretty_generate({
                              rails_files: LocalFilesRegistry.output,
                              engines_files: EnginesFilesRegistry.output,
                              overloads: OverloadsRegistry.output
                            })
+    end
+
+    def generate_status_file
+      File.write("status.json", status_json)
+    end
+
+    def display_banner
+      [display_intro + display_status + display_outro].join("\n")
+    end
+
+    def display_intro
+      "-----\n🙈 🙉 🙊 Bonobot 🙈 🙉 🙊\n-----\n\n🛠 Generating status\n#{File.expand_path("status.json")}\n-----\n\n"
+    end
+
+    def display_status
+      if @status
+        generate_status(@status.to_sym, STATUS[@status.to_sym])
+      else
+        STATUS.map do |status_type, emoji|
+          generate_status(status_type, emoji)
+        end.join("\n")
+      end
+    end
+
+    def display_outro
+      "\n-----"
+    end
+
+    def return_status_code
+      OverloadsRegistry.find_by(status: :out_of_date).empty? && OverloadsRegistry.find_by(status: :missing).empty?
     end
   end
 end
