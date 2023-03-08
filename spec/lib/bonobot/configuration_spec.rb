@@ -44,8 +44,8 @@ describe Bonobot::Configuration do
   context "when config file is present" do
     let(:status_file_path) { "path" }
     let(:status_file_name) { "name" }
-    let(:included_dirs) { ["dir1", "dir2"] }
-    let(:files_pattern) { ["pat1", "pat2"] }
+    let(:included_dirs) { %w(dir1 dir2) }
+    let(:files_pattern) { %w(pat1 pat2) }
 
     before do
       allow(described_class::Configuration).to receive(:config_file).and_return({

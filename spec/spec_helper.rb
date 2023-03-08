@@ -5,6 +5,8 @@ require "bonobot"
 require "simplecov"
 require "simplecov-cobertura"
 require "factory_bot"
+require "parallel"
+require "byebug"
 
 SimpleCov.start
 
@@ -24,7 +26,7 @@ RSpec.configure do |config|
     FactoryBot.find_definitions
   end
 
-  config.before(:each) do
+  config.before do
     allow(Rails).to receive(:root).and_return(Pathname.new(Dir.getwd))
   end
 end

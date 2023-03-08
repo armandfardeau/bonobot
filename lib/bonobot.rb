@@ -13,4 +13,7 @@ module Bonobot
   autoload :FilesOp, "bonobot/files_op"
   autoload :Annotator, "bonobot/annotator"
   autoload :Configuration, "bonobot/configuration"
+  autoload :Findable, "bonobot/findable"
+  autoload :Outputable, "bonobot/outputable"
+  autoload :Reloadable, "bonobot/reloadable"
 end
