@@ -21,7 +21,7 @@ module Bonobot
       if f.first == "# frozen_string_literal: true"
         f.insert(1, "\n#{annotation}")
       else
-        f.insert(0, "\n#{annotation}")
+        f.insert(0, annotation)
       end
 
       File.write(@path, "#{f.join("\n")}\n")
@@ -39,7 +39,7 @@ module Bonobot
 
     def annotation
       if @path.to_s.end_with?(".erb")
-        "<%# bonobot_fingerprint: #{@fingerprint} %>"
+        "<%# bonobot_fingerprint: #{@fingerprint} %>\n"
       else
         "# bonobot_fingerprint: #{@fingerprint}"
       end

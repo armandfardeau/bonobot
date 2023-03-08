@@ -4,8 +4,9 @@ require "json"
 
 module Bonobot
   class Status
+    include Bonobot::Configuration
+
     STATUS = { up_to_date: "🥳", out_of_date: "😱", unused: "😅", missing: "🤬" }.freeze
-    STATUS_FILE_PATH = "status.json"
 
     def self.generate(status = nil)
       new(status).generate
@@ -51,7 +52,7 @@ module Bonobot
     end
 
     def generate_status_file
-      File.write(STATUS_FILE_PATH, status_json)
+      File.write(self.class.configuration.status_file, status_json)
     end
 
     def display_banner
@@ -59,7 +60,7 @@ module Bonobot
     end
 
     def display_intro
-      "-----\n🙈 🙉 🙊 Bonobot 🙈 🙉 🙊\n-----\n\n🛠 Generating status\n#{File.expand_path("status.json")}\n-----\n\n"
+      "-----\n🙈 🙉 🙊 Bonobot 🙈 🙉 🙊\n-----\n\n🛠 Generating status\n#{File.expand_path(self.class.configuration.status_file)}\n-----\n\n"
     end
 
     def display_status

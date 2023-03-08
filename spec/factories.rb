@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "bonobot/engine_file"
-require "bonobot/local_file"
-
 FactoryBot.define do
   Engine = Struct.new(:root, :railtie_namespace, :instance, :engine_name)
   EngineInstance = Struct.new(:root)

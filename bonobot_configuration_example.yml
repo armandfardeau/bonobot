@@ -1,0 +1,18 @@
+############################################
+#        Bonobot configuration file        #
+# This file is used to configure Bonobot   #
+# https://github.com/armandfardeau/bonobot #
+############################################
+
+#####    Status file configuration    ######
+# status_file_path: "" # default to Rails.root
+# status_file_name: "" # default to 'status'
+
+##### Overload matching configuration ######
+# included_dirs: [] # default to ['app']
+# files_pattern: [] # default to ['rb', 'erb']
+# excluded_files: [] # default to []
+
+# Fingerprint configuration
+# fingerprint_algorithm: "md5" # default to "md5", available: "md5", "sha1", "sha256"
+# fingerprint_human_readable: false # default to false, available: true, false

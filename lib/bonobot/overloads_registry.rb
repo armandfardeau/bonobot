@@ -2,12 +2,17 @@
 
 module Bonobot
   module OverloadsRegistry
+    include Bonobot::Findable
+    include Bonobot::Outputable
+    include Bonobot::Reloadable
+
     def self.all
       @all ||= LocalFilesRegistry.all.flat_map do |local_file|
-        next if local_file.nil? || local_file.annotation.nil?
+        next if local_file.nil?
 
         engines_files = EnginesFilesRegistry.find_by(short_path: local_file.path)
-        if engines_files.empty?
+
+        if engines_files.empty? && local_file.annotation.present?
           Overload.new(local_file, nil)
         else
           engines_files.map do |engine_file|
@@ -15,23 +20,6 @@ module Bonobot
           end
         end
       end.compact
-    end
-
-    # TODO: Extract to module
-    def self.find_by(attributes)
-      all.select do |item|
-        attributes.all? do |key, value|
-          item.try(key) == value
-        end
-      end
-    end
-
-    def self.output
-      all.map(&:as_json)
-    end
-
-    def self.reload
-      @all = nil
     end
   end
 end

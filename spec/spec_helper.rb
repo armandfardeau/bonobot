@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require "rails"
+require "bonobot"
 require "simplecov"
 require "simplecov-cobertura"
 require "factory_bot"
+require "parallel"
+require "byebug"
 
 SimpleCov.start
 
@@ -20,5 +24,9 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
+  end
+
+  config.before do
+    allow(Rails).to receive(:root).and_return(Pathname.new(Dir.getwd))
   end
 end

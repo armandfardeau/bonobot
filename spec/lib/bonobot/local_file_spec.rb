@@ -1,18 +1,12 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "bonobot/local_file"
-require "rails"
 
 describe Bonobot::LocalFile do
   subject(:local_file) { described_class.new(path, current_dir) }
 
   let(:current_dir) { Dir.getwd }
   let(:path) { "#{current_dir}/spec/test_files/annoted_example_file.rb" }
-
-  before do
-    allow(Rails).to receive(:root).and_return(current_dir)
-  end
 
   describe ".new" do
     it "has a path" do

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "bonobot/engine_file"
-require "rails"
 
 describe Bonobot::EngineFile do
   subject(:engine_file) { described_class.new(path, engine) }

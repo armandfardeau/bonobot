@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "bonobot/engines_files_registry"
 
 describe Bonobot::EnginesFilesRegistry do
   subject(:registry) { described_class }
